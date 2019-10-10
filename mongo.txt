@@ -1,0 +1,31 @@
+use nodepath
+
+show dbs
+
+db.createCollection('users');
+
+db.users.drop();
+
+show collections
+
+db.users.insert({name:'2nd20',email:'2nd20@gmail.com',username:'2nd20',password:'9012'});
+
+db.users.update({username:'ellen'},{$set:{email:'ellenkate2nd20@gmail.com'}});
+
+db.users.find();
+
+db.users.find().pretty();
+
+db.users.remove({username:'2nd20'});
+
+---------------------------------------
+
+db.posts.insert({title:'Blog Post One',category:'Technology',author:'Kate',body:'This is he body',date:ISODate()});
+
+db.posts.remove({author:''});
+
+db.categories.insert({name:'Technology'});
+
+---------------------------------------------
+
+db.books.insert({title:'Book 1', description:'Nulla facilisi. In suscipit eget massa a posuere. Maecenas lorem sem, sagittis at enim eget, consectetur malesuada risus. Donec sed fringilla diam. Suspendisse iaculis lacus sed odio luctus auctor vel a purus. Nam nec luctus ex. Proin gravida dictum imperdiet. Donec lobortis ultrices odio, eu ornare turpis lobortis tincidunt. Morbi eget tristique lacus. Mauris felis tellus, sagittis sit amet nisi et, finibus ultricies tellus. Integer maximus, sem at condimentum sollicitudin, nisi quam pellentesque purus, eu dictum lacus sapien vitae augue.',category:'Technology',author:'ellenKate',publisher:'Someone',price:'19.99',cover:'a.png'});

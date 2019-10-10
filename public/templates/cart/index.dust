@@ -1,0 +1,67 @@
+{>"layouts/master" /}
+
+{<body}
+	<div class="row">
+		<div class="large-12 columns">
+			<h2>
+				Shopping Cart
+			</h2>
+
+			{?cart.items}
+				<table>
+					<thead>
+						<tr>
+							<th width="650">Item</th>
+							<th width="100">Quantity</th>
+							<th width="100">Total</th>
+							<th width="100"></th>
+						</tr>
+					</thead>
+
+					<tbody>
+						{#cart.items}
+							<tr>
+								<td>
+									<a href="books/details/{.item}">{.title}</a>
+								</td>
+								<td>{.qty}</td>
+								<td>${@math key="{.price}" method="multiply" operand="{.qty}" /}</td>
+								<td>
+									<form method="post" action="/cart/delete/{.item}">
+										<input class="button alert" type="submit" value="Delete">
+										<input type="hidden" name="_csrf" value="{_csrf}">
+										<input type="hidden" name="_method" value="DELETE">
+									</form>
+								</td>
+							</tr>
+						{/cart.items}
+					</tbody>
+				</table>
+			{:else}
+				<p>There are no items in your cart</p>
+			{/cart.items}
+		</div>
+	</div>
+
+	<div class="grid-x">
+		<div class="large-12 columns">
+			<h4>Total: <strong>${cart.total}</strong></h4>
+		</div>
+
+		<div class="large-12 columns">
+			<form action="https://www.sandbox.paypal.com/cgi-bin/websrc" method="post">
+				<input type="hidden" name="cmd" value="_xclick">
+				<input type="hidden" name="business" value="techguyseller@sandbox.com">
+				<input type="hidden" name="item_name" value="TekBooks Books">
+				<input type="hidden" name="item_number" value="1">
+				<input type="hidden" name="currency_code" value="USD">
+				<input type="hidden" name="amount" value="{cart.total}">
+				<input type="hidden" name="no_shipping" value="1">
+				<input type="hidden" name="rm" value="2">
+				<input type="hidden" name="return" value="http://localhost:8000">
+				<input type="hidden" name="cancel_return" value="http://localhost:8000">
+				<input type="image" src="https://www.paypalobjects.com/webstatic/en_US/btn/btn_buynow_107x26.png" name="submit" alt="Buy Now">
+			</form>
+		</div>
+	</div>
+{/body}
